@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboLand - Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Register at RoboLand</h1>
+    </header>
+
+    <section>
+        <form id="register-form">
+            <h2>Register</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="register-email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="register-password" required>
+            <button type="submit">Register</button>
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </form>
+    </section>
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+
+            if (localStorage.getItem(email)) {
+                alert("Account already exists with this email.");
+            } else {
+                localStorage.setItem(email, JSON.stringify({ name, password }));
+                alert("Registration successful! Please log in.");
+                window.location.href = "login.html";
+            }
+        });
+    </script>
+</body>
+</html>

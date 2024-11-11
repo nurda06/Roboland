@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboLand - Courses</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Our Courses</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="cources.html">Courses</a>
+            <a href="instructors.html">Instructors</a>
+            <div id="auth-links">
+                <a href="login.html" id="login-link">Login</a>
+                <a href="profile.html" id="profile-link" style="display:none;">Profile</a>
+                <a href="index.html" id="logout-link" style="display:none;">Logout</a>
+            </div>
+        </nav>
+    </header>
+    <section id="course-search">
+        <h2>Search for Courses</h2>
+        <input type="text" id="search-bar" placeholder="Type to search courses...">
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses">
+        <h2>Available Courses</h2>
+        <ul id="course-list">
+            <li class="course-item">Fundamentals of Robotics</li>
+            <li class="course-item">Programming for Robots</li>
+            <li class="course-item">Preparing for Competitions</li>
+            <li class="course-item">Advanced AI and Robotics</li>
+            <li class="course-item">Beginner's Guide to Electronics</li>
+        </ul>
+    </section>
+    <button id="color-toggle" class="fixed-button">Change Background Color</button>
+    <button id="theme-toggle" class="fixed-button">Day/Night Mode</button>
+    <footer>
+        <p>Contact us at rob@roboland.com | © 2024 RoboLand</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+   <script>
+        // Color toggle button
+        document.getElementById('color-toggle').addEventListener('click', function() {
+            document.body.style.backgroundColor = 
+                document.body.style.backgroundColor === 'lightblue' ? '#f4f4f9' : 'lightblue';
+        });
+
+        // Day/Night mode toggle button
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Feedback form validation
+        const feedbackForm = document.getElementById('feedback-form');
+        if (feedbackForm) {
+            feedbackForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+
+                if (name && email && message) {
+                    alert("Feedback submitted successfully!");
+                    feedbackForm.reset();
+                } else {
+                    alert("Please fill out all fields.");
+                }
+            });
+        }
+        const searchBar = document.getElementById('search-bar');
+        const courseItems = document.querySelectorAll('.course-item');
+
+        searchBar.addEventListener('input', function() {
+            const searchTerm = searchBar.value.toLowerCase();
+            courseItems.forEach(course => {
+                const courseText = course.textContent.toLowerCase();
+                if (courseText.includes(searchTerm)) {
+                    course.style.display = 'list-item';
+                } else {
+                    course.style.display = 'none';
+                }
+            });
+        });
+        // Проверка на вход в систему
+        const loggedInUserEmail = localStorage.getItem("loggedInUser");
+
+        if (loggedInUserEmail) {
+            document.getElementById("login-link").style.display = "none";
+            document.getElementById("profile-link").style.display = "inline";
+            document.getElementById("logout-link").style.display = "inline";
+        } else {
+            document.getElementById("login-link").style.display = "inline";
+            document.getElementById("profile-link").style.display = "none";
+            document.getElementById("logout-link").style.display = "none";
+        }
+
+        // Логика выхода
+        document.getElementById('logout-link')?.addEventListener('click', function() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "courses.html"; // Перенаправление на страницу курсов после выхода
+        });
+    </script>
+</body>
+</html>

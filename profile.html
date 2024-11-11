@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboLand - Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Your Profile</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="cources.html">Courses</a>
+            <a href="instructors.html">Instructors</a>
+        </nav>
+    </header>
+
+    <section id="profile">
+        <h2>Welcome, <span id="user-name"></span>!</h2>
+        <p>Email: <span id="user-email"></span></p>
+        <button id="logout-button">Logout</button>
+    </section>
+
+    <footer>
+        <p>Contact us at rob@roboland.com | © 2024 RoboLand</p>
+    </footer>
+
+    <script>
+        // Check if the user is logged in
+        const loggedInUserEmail = localStorage.getItem("loggedInUser");
+
+        if (!loggedInUserEmail) {
+            alert("You must be logged in to view this page.");
+            window.location.href = "login.html";
+        } else {
+            const user = JSON.parse(localStorage.getItem(loggedInUserEmail));
+            document.getElementById("user-name").textContent = user.name;
+            document.getElementById("user-email").textContent = loggedInUserEmail;
+        }
+
+        // Logout functionality
+        document.getElementById("logout-button").addEventListener("click", function() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "login.html"; // Redirect to login after logout
+        });
+    </script>
+</body>
+</html>
